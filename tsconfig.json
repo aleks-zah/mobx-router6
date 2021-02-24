@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "isolatedModules": true,
+    "noUnusedLocals": true
+  },
+  "include": [
+    "src/**/*",
+    "typings"
+  ]
+}

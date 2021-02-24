@@ -1,0 +1,53 @@
+{
+  "name": "mobx-router6",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && rollup -c"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "router5-plugin-browser": "^8.0.1"
+  },
+  "peerDependencies": {
+    "mobx": "^6.1.7",
+    "mobx-react-lite": "^3.2.0",
+    "react": "^17.0.1",
+    "router5": "^8.0.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "del": "^6.0.0",
+    "mobx": "^6.1.7",
+    "mobx-react-lite": "^3.2.0",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
+    "rollup": "^2.39.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "router5": "^8.0.1",
+    "typescript": "^4.1.5"
+  },
+  "babel": {
+    "comments": false,
+    "presets": [
+      "latest",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-runtime",
+      "proposal-decorators"
+    ]
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ]
+}
