@@ -29,9 +29,7 @@ export default {
     peerDepsExternal(),
     resolve(),
     commonjs(),
-    typescript({
-      useTsconfigDeclarationDir: true,
-    }),
+    typescript(),
     commonjs({
       exclude: ['node_modules', 'example'],
       ignoreGlobal: true,

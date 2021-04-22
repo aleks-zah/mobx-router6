@@ -17,7 +17,7 @@ export const createRoutesMap = <
     {} as Record<Names<T>, T>,
   );
 
-function makeMobxRouterPlugin<
+function createMobxRouterPlugin<
   S extends StoreBase,
   Routes extends Record<string, TypedRoute<string, {}, S>>
 >(routesMap: Routes, routerStoreParam: S) {
@@ -62,7 +62,7 @@ function makeMobxRouterPlugin<
   return mobxRouterPlugin;
 }
 
-export function makeMobxRouter<S extends StoreBase>(
+export function createMobxRouter<S extends StoreBase>(
   routesMap: Record<string, TypedRoute<string, {}, S>>,
   store: S,
 ): Router {
@@ -72,7 +72,7 @@ export function makeMobxRouter<S extends StoreBase>(
 
   router.usePlugin(
     browserPlugin(),
-    makeMobxRouterPlugin<S, Record<string, TypedRoute<string, {}, S>>>(
+    createMobxRouterPlugin<S, Record<string, TypedRoute<string, {}, S>>>(
       routesMap,
       store,
     ),
@@ -86,7 +86,7 @@ export function initRouter<RoutesUnion extends TypedRoute<string, {}, object>>(
 ) {
   routerStore.routes = createRoutesMap(routes);
 
-  routerStore.router = makeMobxRouter(routerStore.routes, routerStore);
+  routerStore.router = createMobxRouter(routerStore.routes, routerStore);
 
   return routerStore;
 }

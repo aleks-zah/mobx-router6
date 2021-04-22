@@ -18,7 +18,8 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "isolatedModules": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "declaration": true
   },
   "include": [
     "src/**/*",

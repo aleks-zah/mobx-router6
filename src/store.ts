@@ -47,7 +47,7 @@ export class RouterStore<RoutesUnion extends IRoute> {
     (this.route = route);
   @action setRouteParams = ({ params }: State) => (this.route.params = params);
 
-  goTo = ({ name, params }: RoutesUnion) => {
+  goTo = ({ name, params }: Pick<RoutesUnion, 'name' | 'params'>) => {
     this.router.navigate(name, { ...this.params, ...params });
   };
 
