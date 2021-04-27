@@ -1,5 +1,5 @@
 import { action, computed, observable, reaction, makeObservable } from 'mobx';
-import { Router, State } from 'router5';
+import { NavigationOptions, Router, State } from 'router5';
 import { IRoute, RouterState, Names, TypedRoute, Params } from './types';
 
 const defaultState: RouterState<'index'> = {
@@ -47,8 +47,11 @@ export class RouterStore<RoutesUnion extends IRoute> {
     (this.route = route);
   @action setRouteParams = ({ params }: State) => (this.route.params = params);
 
-  goTo = ({ name, params }: Pick<RoutesUnion, 'name' | 'params'>) => {
-    this.router.navigate(name, { ...this.params, ...params });
+  goTo = (
+    { name, params }: Partial<RoutesUnion>,
+    options: NavigationOptions = {},
+  ) => {
+    this.router.navigate(name!, { ...this.params, ...params }, options);
   };
 
   @computed get currentRouteName() {
