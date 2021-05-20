@@ -48,10 +48,14 @@ export class RouterStore<RoutesUnion extends IRoute> {
   @action setRouteParams = ({ params }: State) => (this.route.params = params);
 
   goTo = (
-    { name, params }: Partial<RoutesUnion>,
+    { name, params = {} }: Partial<RoutesUnion>,
     options: NavigationOptions = {},
   ) => {
-    this.router.navigate(name!, { ...this.params, ...params }, options);
+    // saving params only when navigating within the same route
+    const newParams =
+      name !== this.route.name ? params : { ...this.params, ...params };
+
+    this.router.navigate(name!, newParams, options);
   };
 
   @computed get currentRouteName() {
