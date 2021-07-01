@@ -45,7 +45,7 @@ export class RouterStore<RoutesUnion extends IRoute> {
 
   @action setRoute = (route: RouterState<Names<RoutesUnion>>) =>
     (this.route = route);
-  @action setRouteParams = ({ params }: State) => (this.route.params = params);
+  @action setRouteParams = ({ params }: Pick<State, 'params'>) => (this.route.params = params);
 
   goTo = (
     { name, params = {} }: Partial<RoutesUnion>,
