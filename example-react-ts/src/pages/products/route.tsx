@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { TypedRoute } from '../../routing';
+import { TypedRoute } from 'mobx-router6';
 
 export const ProductsRoute: TypedRoute<'products', { id?: string }> = {
   name: 'products',

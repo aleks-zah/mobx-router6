@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { useLinkToRoute } from './routing';
+import { useLinkToRoute } from 'mobx-router6';
 import { routes } from './routes';
 
 interface Props {

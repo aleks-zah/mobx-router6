@@ -1,8 +1,8 @@
-import React, { PropsWithChildren } from 'react';
-import { useObserver } from 'mobx-react-lite';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
+import { IRoute } from './types';
 import { routerStore } from './store';
 
-interface Props {
+interface Props<RoutesUnion extends IRoute> {
   defaultWrapper?: any;
 }
 
@@ -10,29 +10,25 @@ const fallbackWrapper = (props: PropsWithChildren<{}>) => (
   <div>{props && props.children}</div>
 );
 
-export const useRoute = ({ defaultWrapper }: Props = {}) => {
-  const wrapper = defaultWrapper || fallbackWrapper;
+export function useRoute<T extends IRoute>({ defaultWrapper }: Props<T>) {
+  const [RouteComponent, setRouteComponent] = useState<any>(null);
+  const [WrapperComponent, setWrapperComponent] = useState(
+    defaultWrapper || fallbackWrapper,
+  );
 
-  return useObserver(() => {
-    if (!routerStore.route) {
-      return {
-        RouteComponent: null,
-        WrapperComponent: wrapper,
-      };
-    }
-
+  useEffect(() => {
     const route = routerStore.routes[routerStore.route.name];
 
     if (!route) {
-      return {
-        RouteComponent: null,
-        WrapperComponent: wrapper,
-      };
+      return;
     }
 
-    return {
-      RouteComponent: route && route.comp(),
-      WrapperComponent: (route && route.wrapper) || wrapper,
-    };
-  });
-};
+    setRouteComponent(route.comp());
+    if (route.wrapper) setWrapperComponent(route.wrapper);
+  }, [routerStore.routes, routerStore.route.name]);
+
+  return {
+    RouteComponent,
+    WrapperComponent,
+  };
+}

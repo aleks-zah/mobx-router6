@@ -1,18 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { initRouter, RouterStoreCtx, useRoute } from './routing';
+import { initRouter, useRoute } from 'mobx-router6';
 import { routes } from './routes';
+import { observer } from 'mobx-react-lite';
 
-const store = initRouter(routes); // router store (mobx)
+// router store (mobx)
+const routerStore = initRouter(routes);
 
-store.router.start(); // router5 api
+// router5 api
+routerStore.router.start();
 
-(window as any).routerStore = store;
+// expose routerStore to debug its contents via global object
+// make sure not to slip it into prod
+(window as any).routerStore = routerStore;
 
 function App() {
-  const { WrapperComponent, RouteComponent } = useRoute();
-  const { route } = useContext(RouterStoreCtx);
+  const { RouteComponent } = useRoute({ routerStore });
 
   return (
     <div className="App">
@@ -27,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

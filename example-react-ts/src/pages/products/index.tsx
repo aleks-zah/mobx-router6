@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from '../../routing/Link';
+import { Link } from 'mobx-router6';
 
 export default () => {
   return (
