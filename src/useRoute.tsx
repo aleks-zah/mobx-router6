@@ -10,7 +10,7 @@ const fallbackWrapper = (props: PropsWithChildren<{}>) => (
   <div>{props && props.children}</div>
 );
 
-export function useRoute<T extends IRoute>({ defaultWrapper }: Props<T>) {
+export function useRoute<T extends IRoute>({ defaultWrapper }: Props<T> = {}) {
   const [RouteComponent, setRouteComponent] = useState<any>(null);
   const [WrapperComponent, setWrapperComponent] = useState(
     defaultWrapper || fallbackWrapper,

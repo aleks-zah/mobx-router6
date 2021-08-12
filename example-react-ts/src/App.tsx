@@ -16,7 +16,7 @@ routerStore.router.start();
 (window as any).routerStore = routerStore;
 
 function App() {
-  const { RouteComponent } = useRoute({ routerStore });
+  const { RouteComponent } = useRoute();
 
   return (
     <div className="App">
