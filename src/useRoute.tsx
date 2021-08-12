@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 import { IRoute } from './types';
 import { routerStore } from './store';
 
@@ -6,29 +6,26 @@ interface Props<RoutesUnion extends IRoute> {
   defaultWrapper?: any;
 }
 
-const fallbackWrapper = (props: PropsWithChildren<{}>) => (
+const FallbackWrapper = (props: PropsWithChildren<{}>) => (
   <div>{props && props.children}</div>
 );
 
 export function useRoute<T extends IRoute>({ defaultWrapper }: Props<T> = {}) {
-  const [RouteComponent, setRouteComponent] = useState<any>(null);
-  const [WrapperComponent, setWrapperComponent] = useState(
-    defaultWrapper || fallbackWrapper,
-  );
+  const wrapper = defaultWrapper || FallbackWrapper;
 
-  useEffect(() => {
+  return useMemo(() => {
     const route = routerStore.routes[routerStore.route.name];
 
-    if (!route) {
-      return;
+    if (route) {
+      return {
+        RouteComponent: route.comp(),
+        WrapperComponent: route.wrapper || wrapper,
+      };
     }
 
-    setRouteComponent(route.comp());
-    if (route.wrapper) setWrapperComponent(route.wrapper);
+    return {
+      RouteComponent: null,
+      WrapperComponent: wrapper,
+    };
   }, [routerStore.routes, routerStore.route.name]);
-
-  return {
-    RouteComponent,
-    WrapperComponent,
-  };
 }
